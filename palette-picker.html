@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Color Palette Picker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f4f4f6;
+      padding: 40px 24px;
+      color: #111;
+    }
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.6rem;
+      margin-bottom: 8px;
+      color: #111;
+    }
+    .subtitle { color: #555; margin-bottom: 40px; font-size: 0.95rem; }
+
+    .palettes {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 28px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .palette-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+      border: 2px solid transparent;
+      transition: transform .2s, box-shadow .2s, border-color .2s;
+      cursor: pointer;
+    }
+    .palette-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+    }
+
+    /* ---- PALETTE PREVIEW MINI SITE ---- */
+    .preview {
+      padding: 24px 24px 20px;
+    }
+    .preview-bg {
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 14px;
+      position: relative;
+      overflow: hidden;
+      min-height: 110px;
+    }
+    .preview-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+    .preview-role { font-size: 0.78rem; opacity: 0.7; margin-bottom: 12px; }
+    .preview-btn {
+      display: inline-block;
+      padding: 5px 14px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #fff;
+      margin-right: 6px;
+    }
+    .preview-btn-outline {
+      background: transparent;
+      border: 1.5px solid;
+      color: inherit;
+    }
+    .swatches {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .swatch {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    }
+    .preview-section {
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.78rem;
+      line-height: 1.5;
+    }
+    .preview-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .preview-pub-title { font-size: 0.8rem; font-weight: 600; margin-bottom: 2px; }
+    .preview-pub-authors { font-size: 0.72rem; opacity: 0.65; }
+
+    .palette-label {
+      padding: 14px 24px 18px;
+      border-top: 1px solid #f0f0f0;
+    }
+    .palette-label h3 { font-size: 1rem; font-weight: 700; margin-bottom: 3px; }
+    .palette-label p { font-size: 0.82rem; color: #666; }
+    .palette-num {
+      display: inline-block;
+      background: #f0f0f0;
+      color: #555;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 99px;
+      margin-bottom: 6px;
+    }
+
+    /* Floating dots for bg preview */
+    .dot {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Choose Your Color Palette</h1>
+<p class="subtitle">Pick the palette that feels right — reply with the number (1–5) and I'll apply it instantly.</p>
+
+<div class="palettes">
+
+  <!-- PALETTE 1: Deep Turquoise -->
+  <div class="palette-card">
+    <div class="preview">
+      <div class="preview-bg" style="background: linear-gradient(135deg, #e0f7f6 0%, #f0fdfb 60%, #e6fffe 100%);">
+        <div class="dot" style="width:60px;height:60px;background:#0097a7;top:-15px;right:-10px;"></div>
+        <div class="dot" style="width:30px;height:30px;background:#26c6da;bottom:10px;right:50px;opacity:0.3;"></div>
+        <p class="preview-name" style="color:#004d5a;">Maya Bechler-Speicher</p>
+        <p class="preview-role" style="color:#00838f;">AI Research Scientist · Graph Foundation Models</p>
+        <span class="preview-btn" style="background:#0097a7;">Google Scholar</span>
+        <span class="preview-btn preview-btn-outline" style="border-color:#0097a7;color:#0097a7;">LinkedIn</span>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background:#0097a7;"></div>
+        <div class="swatch" style="background:#26c6da;"></div>
+        <div class="swatch" style="background:#80deea;"></div>
+        <div class="swatch" style="background:#e0f7fa;"></div>
+        <div class="swatch" style="background:#004d5a;"></div>
+      </div>
+      <div class="preview-section" style="background:#f0fdfb;border:1px solid rgba(0,151,167,0.15);">
+        <span class="preview-tag" style="background:#cff5f7;color:#006d7a;">ICLR 2026</span>
+        <div class="preview-pub-title" style="color:#004d5a;">Billion-Scale Graph Foundation Models</div>
+        <div class="preview-pub-authors">Maya Bechler-Speicher et al.</div>
+      </div>
+    </div>
+    <div class="palette-label">
+      <span class="palette-num">Option 1</span>
+      <h3>Deep Turquoise</h3>
+      <p>Rich cyan-turquoise — bold, oceanic, professional</p>
+    </div>
+  </div>
+
+  <!-- PALETTE 2: Aqua Blue -->
+  <div class="palette-card">
+    <div class="preview">
+      <div class="preview-bg" style="background: linear-gradient(135deg, #e0f4ff 0%, #f0fbff 60%, #e8f8ff 100%);">
+        <div class="dot" style="width:60px;height:60px;background:#0288d1;top:-15px;right:-10px;"></div>
+        <div class="dot" style="width:30px;height:30px;background:#29b6f6;bottom:10px;right:50px;opacity:0.3;"></div>
+        <p class="preview-name" style="color:#01395a;">Maya Bechler-Speicher</p>
+        <p class="preview-role" style="color:#0277bd;">AI Research Scientist · Graph Foundation Models</p>
+        <span class="preview-btn" style="background:#0288d1;">Google Scholar</span>
+        <span class="preview-btn preview-btn-outline" style="border-color:#0288d1;color:#0288d1;">LinkedIn</span>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background:#0288d1;"></div>
+        <div class="swatch" style="background:#29b6f6;"></div>
+        <div class="swatch" style="background:#81d4fa;"></div>
+        <div class="swatch" style="background:#e1f5fe;"></div>
+        <div class="swatch" style="background:#01395a;"></div>
+      </div>
+      <div class="preview-section" style="background:#f0fbff;border:1px solid rgba(2,136,209,0.15);">
+        <span class="preview-tag" style="background:#b3e5fc;color:#01579b;">ICLR 2026</span>
+        <div class="preview-pub-title" style="color:#01395a;">Billion-Scale Graph Foundation Models</div>
+        <div class="preview-pub-authors">Maya Bechler-Speicher et al.</div>
+      </div>
+    </div>
+    <div class="palette-label">
+      <span class="palette-num">Option 2</span>
+      <h3>Aqua Blue</h3>
+      <p>Sky-to-ocean blue — clean, airy, modern</p>
+    </div>
+  </div>
+
+  <!-- PALETTE 3: Teal + Coral accent -->
+  <div class="palette-card">
+    <div class="preview">
+      <div class="preview-bg" style="background: linear-gradient(135deg, #e0f5f2 0%, #f5fffe 60%, #fff0ee 100%);">
+        <div class="dot" style="width:60px;height:60px;background:#00897b;top:-15px;right:-10px;"></div>
+        <div class="dot" style="width:30px;height:30px;background:#ff7043;bottom:10px;right:50px;opacity:0.25;"></div>
+        <p class="preview-name" style="color:#00352e;">Maya Bechler-Speicher</p>
+        <p class="preview-role" style="color:#00695c;">AI Research Scientist · Graph Foundation Models</p>
+        <span class="preview-btn" style="background:#00897b;">Google Scholar</span>
+        <span class="preview-btn preview-btn-outline" style="border-color:#ff7043;color:#ff7043;">LinkedIn</span>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background:#00897b;"></div>
+        <div class="swatch" style="background:#26a69a;"></div>
+        <div class="swatch" style="background:#ff7043;"></div>
+        <div class="swatch" style="background:#ffccbc;"></div>
+        <div class="swatch" style="background:#00352e;"></div>
+      </div>
+      <div class="preview-section" style="background:#f0faf8;border:1px solid rgba(0,137,123,0.15);">
+        <span class="preview-tag" style="background:#b2dfdb;color:#004d40;">ICLR 2026</span>
+        <div class="preview-pub-title" style="color:#00352e;">Billion-Scale Graph Foundation Models</div>
+        <div class="preview-pub-authors">Maya Bechler-Speicher et al.</div>
+      </div>
+    </div>
+    <div class="palette-label">
+      <span class="palette-num">Option 3</span>
+      <h3>Teal + Coral</h3>
+      <p>Deep teal with warm coral accents — vibrant contrast</p>
+    </div>
+  </div>
+
+  <!-- PALETTE 4: Slate + Cyan -->
+  <div class="palette-card">
+    <div class="preview">
+      <div class="preview-bg" style="background: linear-gradient(135deg, #ecf8fb 0%, #f5fbfd 60%, #eaf5f8 100%);">
+        <div class="dot" style="width:60px;height:60px;background:#00acc1;top:-15px;right:-10px;"></div>
+        <div class="dot" style="width:30px;height:30px;background:#4dd0e1;bottom:10px;right:50px;opacity:0.3;"></div>
+        <p class="preview-name" style="color:#1a2e35;">Maya Bechler-Speicher</p>
+        <p class="preview-role" style="color:#00838f;">AI Research Scientist · Graph Foundation Models</p>
+        <span class="preview-btn" style="background:#00acc1;">Google Scholar</span>
+        <span class="preview-btn preview-btn-outline" style="border-color:#00acc1;color:#00acc1;">LinkedIn</span>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background:#00acc1;"></div>
+        <div class="swatch" style="background:#4dd0e1;"></div>
+        <div class="swatch" style="background:#b2ebf2;"></div>
+        <div class="swatch" style="background:#e0f7fa;"></div>
+        <div class="swatch" style="background:#1a2e35;"></div>
+      </div>
+      <div class="preview-section" style="background:#eaf8fb;border:1px solid rgba(0,172,193,0.15);">
+        <span class="preview-tag" style="background:#b2ebf2;color:#006064;">ICLR 2026</span>
+        <div class="preview-pub-title" style="color:#1a2e35;">Billion-Scale Graph Foundation Models</div>
+        <div class="preview-pub-authors">Maya Bechler-Speicher et al.</div>
+      </div>
+    </div>
+    <div class="palette-label">
+      <span class="palette-num">Option 4</span>
+      <h3>Slate + Cyan</h3>
+      <p>Soft cyan on slate — sophisticated, calm, elegant</p>
+    </div>
+  </div>
+
+  <!-- PALETTE 5: Emerald + Turquoise -->
+  <div class="palette-card">
+    <div class="preview">
+      <div class="preview-bg" style="background: linear-gradient(135deg, #e8f8f0 0%, #f2fdf8 60%, #e4faf6 100%);">
+        <div class="dot" style="width:60px;height:60px;background:#00897b;top:-15px;right:-10px;"></div>
+        <div class="dot" style="width:30px;height:30px;background:#00bcd4;bottom:10px;right:50px;opacity:0.3;"></div>
+        <p class="preview-name" style="color:#003d35;">Maya Bechler-Speicher</p>
+        <p class="preview-role" style="color:#00796b;">AI Research Scientist · Graph Foundation Models</p>
+        <span class="preview-btn" style="background: linear-gradient(90deg,#00897b,#00bcd4);">Google Scholar</span>
+        <span class="preview-btn preview-btn-outline" style="border-color:#00897b;color:#00897b;">LinkedIn</span>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background:#00897b;"></div>
+        <div class="swatch" style="background:#00bcd4;"></div>
+        <div class="swatch" style="background:#4db6ac;"></div>
+        <div class="swatch" style="background:#b2dfdb;"></div>
+        <div class="swatch" style="background:#003d35;"></div>
+      </div>
+      <div class="preview-section" style="background:#edfaf6;border:1px solid rgba(0,137,123,0.15);">
+        <span class="preview-tag" style="background:#b2dfdb;color:#004d40;">ICLR 2026</span>
+        <div class="preview-pub-title" style="color:#003d35;">Billion-Scale Graph Foundation Models</div>
+        <div class="preview-pub-authors">Maya Bechler-Speicher et al.</div>
+      </div>
+    </div>
+    <div class="palette-label">
+      <span class="palette-num">Option 5</span>
+      <h3>Emerald + Turquoise</h3>
+      <p>Gradient from emerald to turquoise — lush, dynamic</p>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
